@@ -10,7 +10,7 @@ source:
   sha256: 2d294e583ccc742095cc211080fb1c4c8b095dd4b30b98d116d36acbb4b5e1b6
 
 build:
-  number: 0
+  number: 1
   script:
     env:
       CARGO_PROFILE_RELEASE_LTO: fat
@@ -40,8 +40,8 @@ requirements:
 
 tests:
   - script:
-    - shh --help
-    - shh --version
+      - shh --help
+      - shh --version
     requirements:
       run:
         - strace
