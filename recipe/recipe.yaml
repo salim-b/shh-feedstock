@@ -16,14 +16,14 @@ build:
       CARGO_PROFILE_RELEASE_LTO: fat
       CARGO_PROFILE_RELEASE_STRIP: symbols
     content:
-      - cargo auditable install --locked --no-track --bins --features=generate-extras --root="$PREFIX" --path .
+      - cargo auditable install --path=. --root="$PREFIX" --no-track --locked --bins --features=generate-extras
       # generate manpage and shell completions
       - mkdir -p "$PREFIX"/share/man/man1 "$PREFIX"/share/bash-completion/completions "$PREFIX"/share/fish/vendor_completions.d "$PREFIX"/share/zsh/site-functions
       - '"$PREFIX"/bin/shh gen-man-pages                        "$PREFIX"/share/man/man1'
       - '"$PREFIX"/bin/shh gen-shell-completions --shell=bash > "$PREFIX"/share/bash-completion/completions/shh'
       - '"$PREFIX"/bin/shh gen-shell-completions --shell=fish > "$PREFIX"/share/fish/vendor_completions.d/shh.fish'
       - '"$PREFIX"/bin/shh gen-shell-completions --shell=zsh  > "$PREFIX"/share/zsh/site-functions/_shh'
-      - cargo-bundle-licenses --format yaml --output ./THIRDPARTY.yml
+      - cargo-bundle-licenses --format=yaml --output=./THIRDPARTY.yml
   skip:
     - osx
     - win
@@ -50,22 +50,13 @@ tests:
         - shh
       files:
         - share/man/man1/shh.1
-        - share/man/man1/shh-gen-man-pages.1
-        - share/man/man1/shh-gen-shell-completions.1
-        - share/man/man1/shh-list-systemd-options.1
-        - share/man/man1/shh-merge-profile-data.1
-        - share/man/man1/shh-run.1
-        - share/man/man1/shh-service.1
-        - share/man/man1/shh-service-finish-profile.1
-        - share/man/man1/shh-service-reset.1
-        - share/man/man1/shh-service-start-profile.1
+        - share/man/man1/shh-*.1
         - share/bash-completion/completions/shh
         - share/fish/vendor_completions.d/shh.fish
         - share/zsh/site-functions/_shh
       strict: true
 
 about:
-  homepage: https://github.com/desbma/shh
   summary: Automatic systemd service hardening guided by strace profiling
   description: |
     Systemd Hardening Helper (SHH) can generate an optimal set of hardening
@@ -77,6 +68,7 @@ about:
   license_file:
     - LICENSE
     - THIRDPARTY.yml
+  homepage: https://github.com/desbma/shh
   repository: https://github.com/desbma/shh
 
 extra:
