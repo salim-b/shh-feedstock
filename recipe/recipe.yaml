@@ -25,8 +25,7 @@ build:
       - '"$PREFIX"/bin/shh gen-shell-completions --shell=zsh  > "$PREFIX"/share/zsh/site-functions/_shh'
       - cargo-bundle-licenses --format=yaml --output=./THIRDPARTY.yml
   skip:
-    - osx
-    - win
+    - not linux
 
 requirements:
   build:
@@ -49,8 +48,7 @@ tests:
       bin:
         - shh
       files:
-        - share/man/man1/shh.1
-        - share/man/man1/shh-*.1
+        - share/man/man1/shh*.1
         - share/bash-completion/completions/shh
         - share/fish/vendor_completions.d/shh.fish
         - share/zsh/site-functions/_shh
